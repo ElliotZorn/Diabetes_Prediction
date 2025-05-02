@@ -17,13 +17,15 @@ except:
 print("First 5 rows of the dataset:")
 print(df.head())
 
+print("\nStatistical summary of dataset:")
+print(df.describe())
+
+# assuming missing means null.
+print("\nNumber of missing values for each variable:")
+print(df.isnull().sum())
+
+# keep this at end, as it blocks execution
 print("\nDisplaying histograms for each variable:")
 df.hist(figsize=(12, 10))
 plt.tight_layout()
 plt.show()
-
-print("\nStatistical summary of dataset:")
-print(df.describe())
-
-print("\nNumber of missing values for each variable:")
-print(df.isnull().sum())
