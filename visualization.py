@@ -14,13 +14,16 @@ except:
 
 # **ADD YOUR CODE HERE**
 
-# print the first 5 rows of the dataset
+print("First 5 rows of the dataset:")
+print(df.head())
 
+print("\nDisplaying histograms for each variable:")
+df.hist(figsize=(12, 10))
+plt.tight_layout()
+plt.show()
 
-# display histogram for each variable
+print("\nStatistical summary of dataset:")
+print(df.describe())
 
-
-# statistical summary of dataset
-    
-
-# print the number of missing values for each variable
+print("\nNumber of missing values for each variable:")
+print(df.isnull().sum())
