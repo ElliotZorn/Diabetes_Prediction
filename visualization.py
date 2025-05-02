@@ -20,9 +20,9 @@ print(df.head())
 print("\nStatistical summary of dataset:")
 print(df.describe())
 
-# assuming missing means null.
-print("\nNumber of missing values for each variable:")
-print(df.isnull().sum())
+# assuming missing means 0 and not null.
+print("\nNumber of zero values for each variable:")
+print((df == 0).sum())
 
 # keep this at end, as it blocks execution
 print("\nDisplaying histograms for each variable:")
