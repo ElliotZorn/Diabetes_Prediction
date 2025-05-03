@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
+#import utils
 
 try:
     df = pd.read_csv('diabetes.csv')
@@ -23,6 +24,9 @@ print(df.describe())
 # assuming missing means 0 and not null.
 print("\nNumber of zero values for each variable:")
 print((df == 0).sum())
+
+#test utils preprocess
+#df = utils.preprocess(df)
 
 # keep this at end, as it blocks execution
 print("\nDisplaying histograms for each variable:")
