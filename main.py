@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Dense
 from utils import preprocess
-from tensorflow.keras.layers import Dropout
+from keras.layers import Dropout
 
 try:
     df = pd.read_csv('diabetes.csv')
