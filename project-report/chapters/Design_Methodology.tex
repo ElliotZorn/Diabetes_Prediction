@@ -1,0 +1,39 @@
+\section{Design \& Methodology}
+
+\subsection{Dataset}
+
+The dataset used in this project is the \textit{Pima Indians Diabetes Dataset}, curated by the National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK). It contains diagnostic measurements for 768 female patients aged 21 years and above of Pima Indian heritage. The dataset includes 8 input features: Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, and Age. The target variable is \textit{Outcome}, a binary indicator of diabetes presence (1) or absence (0). 
+
+Several of the features in the dataset--- Glucose, BloodPressure, SkinThickness, Insulin, and BMI---contain zero values that are not biologically plausible. In medical datasets, such zero values often indicate missing or unrecorded data rather than true measurements. To address this, a data imputation strategy was applied to replace these values.
+
+Specifically, mean imputation was performed using the SimpleImputer class from the scikit-learn library. For each affected feature, the mean of the non-zero entries was computed and used to replace all zero values. This approach assumes that the data are missing at random and that the mean of the observed values is a reasonable estimate for the missing ones.
+
+While mean imputation is straightforward, it has limitations. It tends to reduce the variance in the dataset and may introduce bias if the assumption of missing at random is violated. Nonetheless, it provides a simple and effective initial solution for handling missing data in many practical settings.
+
+After imputation, all continuous features were standardized using StandardScaler from scikit-learn, which transforms each feature to have zero mean and unit variance. This normalization step is critical for neural network training, as it improves numerical stability and accelerates convergence by ensuring that all input features contribute equally during the optimization process.
+
+
+\subsection{Model Selection}
+
+A feedforward neural network, specifically a Multilayer Perceptron (MLP), was chosen due to its capacity to capture complex, non-linear relationships between input features and the target variable—something that simpler linear models may fail to do effectively. MLPs are particularly well-suited for structured (tabular) datasets like this one, where the interactions between variables may not be explicitly known or linearly separable. The implementation was carried out using the Keras Sequential API, which offers a clear and modular approach to layer construction.
+\\\\\\
+The chosen architecture includes:
+\begin{itemize}
+    \item Input layer compatible with 8 input features.
+    \item First hidden layer with 32 units and ReLU activation.
+    \item Second hidden layer with 16 units and ReLU activation.
+    \item Dropout layers (30\% after the first and 20\% after the second) to prevent overfitting.
+    \item Third dense layer with 8 units.
+    \item Output layer with a single unit and a sigmoid activation function to produce a binary classification.
+\end{itemize}
+
+
+\subsection{Training Process}
+
+The model was compiled using the Adam optimizer (Adaptive Moment Estimation) and the binary cross-entropy loss function, both well-suited for binary classification tasks. Classification accuracy was used as the primary performance metric.
+
+Training was performed for 100 epochs using a mini-batch size of 16. The dataset was split into 80\% training and 20\% testing data, with the test set serving as the validation set during training. All training was conducted in a standard CPU-based environment.
+
+The mini-batch size of 16 provided a balance between frequent weight updates and computational efficiency, particularly given the small dataset. The training duration was capped at 100 epochs to mitigate overfitting, this was also due to the small dataset.
+
+
