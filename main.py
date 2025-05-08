@@ -6,17 +6,15 @@ np.random.seed(16)
 
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
+from keras.callbacks import EarlyStopping
 from utils import preprocess
-from keras.layers import Dropout
 
+# Load dataset
 try:
     df = pd.read_csv('diabetes.csv')
-except:
-    print("""
-      Dataset not found in your computer.
-      Please follow the instructions on how to download the dataset.
-      """)
+except FileNotFoundError:
+    print("Dataset not found. Please follow the instructions to download the dataset.")
     quit()
 
 
@@ -27,6 +25,7 @@ df = preprocess(df)
 X=df.drop(columns=['Outcome'])
 y=df['Outcome']
 
+# Train/test split
 x_train,x_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
 print("training set size:", x_train.shape)
 
@@ -35,11 +34,23 @@ model = Sequential(
         [Dense(32,activation='relu',name='layer1',input_shape=(X.shape[1],)),
          Dense(16,activation='relu',name='layer2'),
          Dropout(0.3),
-         Dense(8,name='layer3'),
+         Dense(8,activation='relu',name='layer3'),
          Dropout(0.2),
          Dense(1,activation='sigmoid',name='output'),]
         )
 model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
-model.fit(x_train,y_train,epochs=100,batch_size=16,validation_data=(x_test,y_test))
+
+# Early stopping to prevent overfitting
+early_stop = EarlyStopping(monitor='val_loss', patience=20, restore_best_weights=True)
+
+# Train the model
+model.fit(
+    x_train,y_train,
+    epochs=100,
+    batch_size=16,
+    validation_data=(x_test,y_test),
+    callbacks=[early_stop],
+    verbose=1
+    )
 model.evaluate(x_test,y_test)
 # Results - Accuracy

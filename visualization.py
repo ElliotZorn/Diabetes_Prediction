@@ -6,12 +6,12 @@ from matplotlib import pyplot as plt
 
 try:
     df = pd.read_csv('diabetes.csv')
-except:
+except FileNotFoundError:
     print("""
       Dataset not found in your computer.
       Please follow the instructions on how to download the dataset.
       """)
-    quit()
+    raise
 
 # **ADD YOUR CODE HERE**
 
@@ -30,6 +30,6 @@ print((df == 0).sum())
 
 # keep this at end, as it blocks execution
 print("\nDisplaying histograms for each variable:")
-df.hist(figsize=(12, 10))
+df.hist(figsize=(12, 10), bins=50) # added bins
 plt.tight_layout()
 plt.show()
