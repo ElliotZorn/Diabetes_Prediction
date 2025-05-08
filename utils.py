@@ -8,8 +8,7 @@ def preprocess(df):
     # **ADD YOUR CODE HERE**
     
     #split outcome column from rest of dataset to preserve it
-    features = df.drop(columns='Outcome')
-    target = df['Outcome']
+    features, target = df.drop(columns='Outcome'), df['Outcome']
 
     #imputation replacing 0 vals with column mean
     imp_mean = SimpleImputer(missing_values=0, strategy='mean')
