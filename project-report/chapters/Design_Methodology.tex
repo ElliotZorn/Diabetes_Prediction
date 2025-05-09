@@ -30,10 +30,10 @@ The chosen architecture includes:
 
 \subsection{Training Process}
 
-The model was compiled using the Adam optimizer (Adaptive Moment Estimation) and the binary cross-entropy loss function, both well-suited for binary classification tasks. Classification accuracy was used as the primary performance metric.
+The model was compiled with the Adam optimizer and the binary cross-entropy loss function, both of which are well-suited for binary classification tasks. Classification accuracy was used as the primary evaluation metric.
 
-Training was performed for 100 epochs using a mini-batch size of 16. The dataset was split into 80\% training and 20\% testing data, with the test set serving as the validation set during training. All training was conducted in a standard CPU-based environment.
+Training was carried out for a maximum of 100 epochs with a mini-batch size of 16. The dataset was divided into 80\% training and 20\% testing data, with the test set used as the validation set during training. Early stopping was implemented with a patience of 20 epochs, allowing training to halt when the validation loss ceased improving, and the best model weights were restored to mitigate overfitting.
 
-The mini-batch size of 16 provided a balance between frequent weight updates and computational efficiency, particularly given the small dataset. The training duration was capped at 100 epochs to mitigate overfitting, this was also due to the small dataset.
+All training was performed in a standard CPU-based environment. Final performance was assessed using accuracy on the held-out test set.
 
 
