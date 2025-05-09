@@ -4,18 +4,18 @@
 
 The dataset used in this project is the \textit{Pima Indians Diabetes Dataset}, curated by the National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK). It contains diagnostic measurements for 768 female patients aged 21 years and above of Pima Indian heritage. The dataset includes 8 input features: Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, and Age. The target variable is \textit{Outcome}, a binary indicator of diabetes presence (1) or absence (0). 
 
-Several of the features in the dataset--- Glucose, BloodPressure, SkinThickness, Insulin, and BMI---contain zero values that are not biologically plausible. In medical datasets, such zero values often indicate missing or unrecorded data rather than true measurements. To address this, a data imputation strategy was applied to replace these values.
+Several of the features in the dataset such as Glucose, BloodPressure, SkinThickness, Insulin, and BMI contain zero values that are not biologically plausible. In medical datasets, such zero values often indicate missing or unrecorded data rather than true measurements. To address this, a data imputation strategy was applied to replace these values.
 
 Specifically, mean imputation was performed using the SimpleImputer class from the scikit-learn library. For each affected feature, the mean of the non-zero entries was computed and used to replace all zero values. This approach assumes that the data are missing at random and that the mean of the observed values is a reasonable estimate for the missing ones.
 
 While mean imputation is straightforward, it has limitations. It tends to reduce the variance in the dataset and may introduce bias if the assumption of missing at random is violated. Nonetheless, it provides a simple and effective initial solution for handling missing data in many practical settings.
 
-After imputation, all continuous features were standardized using StandardScaler from scikit-learn, which transforms each feature to have zero mean and unit variance. This normalization step is critical for neural network training, as it improves numerical stability and accelerates convergence by ensuring that all input features contribute equally during the optimization process.
+After imputation, all features were standardized using StandardScaler from scikit-learn, which transforms each feature to have zero mean and unit variance. This normalization step is critical for neural network training, as it improves numerical stability and accelerates convergence by ensuring that all input features contribute equally during the optimization process.
 
 
 \subsection{Model Selection}
 
-A feedforward neural network, specifically a Multilayer Perceptron (MLP), was chosen due to its capacity to capture complex, non-linear relationships between input features and the target variable—something that simpler linear models may fail to do effectively. MLPs are particularly well-suited for structured (tabular) datasets like this one, where the interactions between variables may not be explicitly known or linearly separable. The implementation was carried out using the Keras Sequential API, which offers a clear and modular approach to layer construction.
+A feedforward neural network, specifically a Multilayer Perceptron, was chosen due to its capacity to capture complex, non-linear relationships between input features and the target variable—something that simpler linear models may fail to do effectively. MLPs are particularly well-suited for structured (tabular) datasets like this one, where the interactions between variables may not be explicitly known or linearly separable. The implementation was carried out using the Keras Sequential API, which offers a clear and modular approach to layer construction.
 \\\\\\
 The chosen architecture includes:
 \begin{itemize}
@@ -30,10 +30,10 @@ The chosen architecture includes:
 
 \subsection{Training Process}
 
-The model was compiled with the Adam optimizer and the binary cross-entropy loss function, both of which are well-suited for binary classification tasks. Classification accuracy was used as the primary evaluation metric.
+The model was compiled with the Adam optimizer and the binary cross-entropy loss function which is well-suited for binary classification tasks. Classification accuracy was used as the primary evaluation metric.
 
 Training was carried out for a maximum of 100 epochs with a mini-batch size of 16. The dataset was divided into 80\% training and 20\% testing data, with the test set used as the validation set during training. Early stopping was implemented with a patience of 20 epochs, allowing training to halt when the validation loss ceased improving, and the best model weights were restored to mitigate overfitting.
 
-All training was performed in a standard CPU-based environment. Final performance was assessed using accuracy on the held-out test set.
+All training was performed in a standard CPU-based environment.
 
 
